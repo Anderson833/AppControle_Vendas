@@ -6,17 +6,139 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".MainActivity">
-<TextView
-    android:layout_width="match_parent"
-    android:gravity="center"
-    android:text="Lista de Produtos"
-    android:textSize="30sp"
-    android:textColor="@color/black"
-   android:background="@drawable/styletextview"
-    android:padding="20dp"
-    android:layout_height="wrap_content"></TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/styletextview"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Lista de Produtos"
+            android:textColor="@color/black"
+            android:textSize="20sp"></TextView>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/styletextview"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Pesquisar:"
+                android:textColor="@color/black"
+                android:textSize="20sp"></TextView>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_height="wrap_content">
+
+                <CheckBox
+                    android:id="@+id/checkBoxData"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Data" />
+                <CheckBox
+                    android:id="@+id/checkBoxProduto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Produto" />
+                <CheckBox
+                    android:id="@+id/checkBoxEntreDatas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Entre Datas" />
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:background="@drawable/styleview"
+                android:id="@+id/dataEspecificaLinear"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="Data"
+                    android:gravity="center"
+                    android:layout_height="wrap_content">
+                </TextView>
+                <TextView
+                    android:id="@+id/editDataEspecifica"
+                    android:layout_width="300dp"
+                    android:layout_gravity="center"
+                    android:hint="Dia/Mês/Ano"
+                    android:layout_height="wrap_content">
+                </TextView>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/stylecards"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="Qtd Rg:">
+            </TextView>
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="100"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/black"
+                android:id="@+id/totalListaRg">
+            </TextView>
+        </LinearLayout>
+        <Space
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"></Space>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/stylecards"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="Total:">
+            </TextView>
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/black"
+                android:id="@+id/totalLista">
+            </TextView>
+        </LinearLayout>
+    </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/Recycleviewprodutos"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 </androidx.appcompat.widget.LinearLayoutCompat>

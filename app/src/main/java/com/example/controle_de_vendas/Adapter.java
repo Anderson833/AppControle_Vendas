@@ -65,25 +65,26 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyholderProdutos> {
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(holder.itemView.getContext(), "Deletado com êxito!", Toast.LENGTH_SHORT).show();
               MyBancoControle_venda  bd = Room.databaseBuilder(holder.delete.getContext(), MyBancoControle_venda.class, "Meu_bd").allowMainThreadQueries().build();
                 MyDao myDao = bd.myDao();
-               myDao.deletaDados(id);
-
-               notifyDataSetChanged();
-                Intent intents = new Intent(holder.itemView.getContext(),MainActivity.class);
-                holder.itemView.getContext().startActivity(intents);
+                if(myDao.is_exist(id)){
+                    Toast.makeText(holder.itemView.getContext(), "Deletado com êxito!", Toast.LENGTH_SHORT).show();
+                    myDao.deletaDados(id);notifyDataSetChanged();
+                    Intent intents = new Intent(holder.itemView.getContext(),MainActivity.class);
+                    holder.itemView.getContext().startActivity(intents);
+                }else{
+                    Toast.makeText(holder.itemView.getContext(), "Não existir dados para excluir!", Toast.LENGTH_SHORT).show();
+                }
             }
 
         });
       holder.alterar.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-              holder.contador++;
-            //  listaInvesti.get(position).getId();
-            //  String msg=holder.idInvestir.getText().toString();
-            //  Toast.makeText(holder.itemView.getContext(), "dado "+msg, Toast.LENGTH_SHORT).show();
-              if (holder.contador==1) {
+              MyBancoControle_venda  bd = Room.databaseBuilder(holder.alterar.getContext(), MyBancoControle_venda.class, "Meu_bd").allowMainThreadQueries().build();
+              MyDao myDao = bd.myDao();
+            boolean vrfc=myDao.is_exist(id);
+              if (vrfc) {
                  Intent intents = new Intent(holder.itemView.getContext(),Investimentos.class);
                  intents.putExtra("id",id);
                 intents.putExtra("nome", nom);
@@ -93,10 +94,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyholderProdutos> {
                   intents.putExtra("valorPg", vlPg);
                   intents.putExtra("total", totl);
                   holder.itemView.getContext().startActivity(intents);
-              /*   Toast.makeText(holder.itemView.getContext(), "Dados atualizados!", Toast.LENGTH_SHORT).show();
-                  MyBancoControle_venda  bd = Room.databaseBuilder(holder.alterar.getContext(), MyBancoControle_venda.class, "Meu_bd").allowMainThreadQueries().build();
-                  MyDao myDao = bd.myDao();
-                  myDao.alteraDados(new Investimento(id,nom,dat,quantidad,vlRv,vlPg,totl));*/
 
                   if (holder.nome.isEnabled()==true){
                       holder.nome.setEnabled(false);
@@ -113,7 +110,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyholderProdutos> {
                   if (holder.ValorPagor.isEnabled()==true){
                       holder.ValorPagor.setEnabled(false);
                   }
-                  holder.contador=0;
+
+              }else {
+                  Toast.makeText(holder.itemView.getContext(), "Não tem dados salvos!", Toast.LENGTH_SHORT).show();
               }
 
           }

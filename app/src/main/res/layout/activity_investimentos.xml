@@ -29,7 +29,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:textSize="20sp"
-                android:text="02/03/2024" />
+                ></TextView>
         </LinearLayout>
         <TextView
             android:id="@+id/textView2"

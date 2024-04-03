@@ -2,8 +2,12 @@ package com.example.controle_de_vendas;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.CheckBox;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
@@ -17,6 +21,9 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private int id;
+    private CheckBox checkdataespecifica;
+    private LinearLayoutCompat linearDataEspecifica;
+    private TextView totalLista;
    private MyBancoControle_venda bd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,13 +33,25 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-
-
+        checkdataespecifica =findViewById(R.id.checkBoxData);
+        linearDataEspecifica = findViewById(R.id.dataEspecificaLinear);
+        totalLista=findViewById(R.id.totalLista);
                  lista();
-
+                 setaTotal(); 
       //  updateInvestimentos();
-
         Log.i("Main","Main lista");
+
+        checkdataespecifica.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(checkdataespecifica.isChecked()){
+                    linearDataEspecifica.setVisibility(View.VISIBLE);
+                }else {
+                    linearDataEspecifica.setVisibility(View.GONE);
+                }
+            }
+        });
+
     }
 
            public void lista () {
@@ -48,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             }).start();
         }
 
-    public void updateDados(){
+   /* public void updateDados(){
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -66,6 +85,18 @@ public class MainActivity extends AppCompatActivity {
             }
         }).start();
 
+    }*/
+
+    public void setaTotal(){
+         new Thread(new Runnable() {
+             @Override
+             public void run() {
+                 bd = Room.databaseBuilder(getApplication(), MyBancoControle_venda.class, "Meu_bd").allowMainThreadQueries().build();
+                 MyDao myDao = bd.myDao();
+               double total=  myDao.todoTotalInvestido();
+               totalLista.setText(""+total);
+             }
+         }).start();
     }
 
     }

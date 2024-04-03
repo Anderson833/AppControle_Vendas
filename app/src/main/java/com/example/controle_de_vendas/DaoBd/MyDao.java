@@ -26,10 +26,13 @@ public interface MyDao {
     @Update
     void alteraDados(Investimento investimento);
 
+    @Query("SELECT SUM(total) FROM Investimento")
+    double todoTotalInvestido();
+
     @Delete
     void deleteInvestimentos(Investimento investimento);
-   /* @Query("SELECT EXISTS(SELECT*FROM Investimento WHERE id=:id)")
-    Boolean is_exist(int id);*/
+    @Query("SELECT EXISTS(SELECT*FROM Investimento WHERE id=:id)")
+    Boolean is_exist(int id);
     @Query("SELECT*FROM Investimento")
     List<Investimento> getAllInvestimentos();
 
