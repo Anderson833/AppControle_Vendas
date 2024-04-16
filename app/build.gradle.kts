@@ -5,7 +5,9 @@ plugins {
 android {
     namespace = "com.example.controle_de_vendas"
     compileSdk = 34
-
+    viewBinding {
+        enable=true
+    }
     defaultConfig {
         applicationId = "com.example.controle_de_vendas"
         minSdk = 24

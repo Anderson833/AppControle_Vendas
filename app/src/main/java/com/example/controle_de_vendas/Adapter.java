@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +17,7 @@ import com.example.controle_de_vendas.DaoBd.MyDao;
 import com.example.controle_de_vendas.Database.MyBancoControle_venda;
 import com.example.controle_de_vendas.Modelo.Investimento;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.MyholderProdutos> {
@@ -47,10 +47,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyholderProdutos> {
      holder.idInvestir.setText(""+listaInvesti.get(position).getId());
       holder.nome.setText(listaInvesti.get(position).getNomeProd());
       holder.qtd.setText(""+listaInvesti.get(position).getQuantidade());
-      holder.data.setText(listaInvesti.get(position).getData()) ;
-      holder.preco.setText(""+listaInvesti.get(position).getValorRv());
-      holder.ValorPagor.setText(""+listaInvesti.get(position).getPrecoPg());
-      holder.todototal.setText(""+listaInvesti.get(position).getTodoTotal());
+      holder.data.setText(listaInvesti.get(position).getData());
+      holder.preco.setText("R$ "+ holder.formataValor(listaInvesti.get(position).getValorRv()));
+      holder.ValorPagor.setText("R$ "+holder.formataValor(listaInvesti.get(position).getPrecoPg()));
+      holder.todototal.setText("R$ "+ holder.formataValor(listaInvesti.get(position).getTodoTotal()));
 
 
       int id=listaInvesti.get(position).getId();
@@ -95,22 +95,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyholderProdutos> {
                   intents.putExtra("total", totl);
                   holder.itemView.getContext().startActivity(intents);
 
-                  if (holder.nome.isEnabled()==true){
-                      holder.nome.setEnabled(false);
-                  }
-                  if (holder.qtd.isEnabled()==true){
-                      holder.qtd.setEnabled(false);
-                  }
-                  if (holder.data.isEnabled()==true){
-                      holder.data.setEnabled(false);
-                  }
-                  if (holder.preco.isEnabled()==true){
-                      holder.preco.setEnabled(false);
-                  }
-                  if (holder.ValorPagor.isEnabled()==true){
-                      holder.ValorPagor.setEnabled(false);
-                  }
-
               }else {
                   Toast.makeText(holder.itemView.getContext(), "Não tem dados salvos!", Toast.LENGTH_SHORT).show();
               }
@@ -126,12 +110,17 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyholderProdutos> {
     }
 
     public class MyholderProdutos extends RecyclerView.ViewHolder{
-       TextView todototal,idInvestir;
-        EditText nome,qtd,preco,data,ValorPagor;
+       TextView todototal,idInvestir,nome,qtd,preco,data,ValorPagor;
+
        Button alterar, delete;
          int contador;
 
-
+        public String formataValor(double valor){
+            //  classe DecimaFormat para colocar os valores em casas decimais
+            DecimalFormat decimalFormat  = new DecimalFormat("#,##0.00");
+            String valorConvertido=decimalFormat.format(valor);
+            return valorConvertido;
+        }
 
         public MyholderProdutos(@NonNull View itemView) {
             super(itemView);

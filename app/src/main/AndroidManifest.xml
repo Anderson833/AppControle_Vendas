@@ -13,6 +13,18 @@
         android:theme="@style/Theme.Controle_de_vendas"
         tools:targetApi="31">
         <activity
+            android:name=".ListaPorDataProduto"
+            android:exported="false" />
+        <activity
+            android:name=".ListaEntreDatas"
+            android:exported="false" />
+        <activity
+            android:name=".ListaPorProduto"
+            android:exported="false" />
+        <activity
+            android:name=".ListaPorData"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
