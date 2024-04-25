@@ -10,49 +10,47 @@ import androidx.room.Room;
 import com.example.controle_de_vendas.DaoBd.MyDao;
 import com.example.controle_de_vendas.Database.MyBancoControle_venda;
 import com.example.controle_de_vendas.Modelo.Investimento;
-import com.example.controle_de_vendas.databinding.ActivityListaPorDataProdutoBinding;
+import com.example.controle_de_vendas.databinding.ActivityListaEntreDatasProdutoBinding;
 
 import java.text.DecimalFormat;
 import java.util.List;
 
-public class ListaPorDataProduto extends AppCompatActivity {
+public class ListaEntreDatasProduto extends AppCompatActivity {
 
-    private ActivityListaPorDataProdutoBinding binding;
+    private ActivityListaEntreDatasProdutoBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding =ActivityListaPorDataProdutoBinding.inflate(getLayoutInflater());
+        binding =ActivityListaEntreDatasProdutoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        binding.recyclerviewProdutoEspecifico.setLayoutManager(layoutManager);
-        binding.recyclerviewProdutoEspecifico.setHasFixedSize(true);
-
-         String data=getIntent().getStringExtra("dataunica");
-         String nomeProduto=getIntent().getStringExtra("nomeProd");
-         listaPelaDataProduto(data,nomeProduto);
+        binding.RecycleviewprodutosEntreDatas.setLayoutManager(layoutManager);
+        binding.RecycleviewprodutosEntreDatas.setHasFixedSize(true);
+        String datacomeco=getIntent().getStringExtra("datacomeco");
+        String dataTernino=getIntent().getStringExtra("datatermino");
+        String nome_produto=getIntent().getStringExtra("nomeProduto");
+        listaProdutoEntreDatas(datacomeco,dataTernino,nome_produto);
     }
-
-    public void listaPelaDataProduto (String data,String nome) {
+    public void listaProdutoEntreDatas (String datai,String dataf,String nomeProd) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     MyBancoControle_venda bd = Room.databaseBuilder(getApplication(), MyBancoControle_venda.class, "Meu_bd").build();
                     MyDao myDao = bd.myDao();
-                    List<Investimento> listInvestir = myDao.listaTodosEntreDataProduto(data,nome);
+                    List<Investimento> listInvestir = myDao.listaTodosEntreDatas_e_Produto(datai,dataf,nomeProd);
                     Adapter adapter = new Adapter(listInvestir);
-                    binding.recyclerviewProdutoEspecifico.setAdapter(adapter);
-                    String qtdRg=myDao.qtdRegistrosEntreDataProduto(data,nome);
+                    binding.RecycleviewprodutosEntreDatas.setAdapter(adapter);
+                    String qtdRg=myDao.qtdRegistrosEntreDatas_e_Produto(datai,dataf,nomeProd);
                     binding.totalListaRg.setText(""+qtdRg);
-                    double total=myDao.totalInvestidoEntreDataProduto(data,nome);
+                    double total=myDao.totalInvestidoEntreDatas_e_Produto(datai,dataf,nomeProd);
                     binding.totalLista.setText(""+formataValor(total));
-                    binding.nomeProduto.setText(nome);
-                    binding.editDataEspecificaProd.setText(data);
+                    binding.editDataComeco.setText(datai);
+                    binding.editDataTerminio.setText(dataf);
+                    binding.produtoEscolhido.setText(nomeProd);
                 }catch (Exception e){
 
                 }
-
-
             }
         }).start();
     }

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".TelaPrincipal">
+<TextView
+    android:layout_width="match_parent"
+    android:text="Controle de vendas"
+    android:gravity="center"
+    android:textSize="30sp"
+    android:layout_height="wrap_content">
+</TextView>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:id="@+id/listaTodos"
+        android:orientation="horizontal"
+        android:layout_height="40dp">
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:text="Investimentos"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:id="@+id/listaTodosDados"
+            android:layout_height="match_parent"></androidx.appcompat.widget.AppCompatButton>
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="match_parent"></Space>
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Despesas"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:layout_height="match_parent"></TextView>
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="match_parent"></Space>
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Vendas"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:layout_height="match_parent"></TextView>
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="match_parent"></Space>
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Relatório"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:layout_height="match_parent"></TextView>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.appcompat.widget.LinearLayoutCompat>

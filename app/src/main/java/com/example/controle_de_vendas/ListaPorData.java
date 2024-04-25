@@ -43,35 +43,20 @@ public class ListaPorData extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-            MyBancoControle_venda bd = Room.databaseBuilder(getApplication(), MyBancoControle_venda.class, "Meu_bd").build();
-                MyDao myDao = bd.myDao();
-                List<Investimento> listInvestir = myDao.getAllInvestimentosPelaData(dat);
-                Adapter adapter = new Adapter(listInvestir);
-                recyclerView.setAdapter(adapter);
-                String qtdRg=myDao.qtdRegistrosPelaData(dat);
-                totalListaRg.setText(""+qtdRg);
-                double total=myDao.totalInvestidoPelaData(dat);
-                totalLista.setText(""+formataValor(total));
-                editDataEspecifica.setText(dat);
-                alteraNomeCampo=true;
-            }
-        }).start();
-    }
-    public void listaPeloNomeProdut (String nome) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                MyBancoControle_venda bd = Room.databaseBuilder(getApplication(), MyBancoControle_venda.class, "Meu_bd").build();
-                MyDao myDao = bd.myDao();
-                List<Investimento> listInvestir = myDao.listaTodosProdPeloNome(nome);
-                Adapter adapter = new Adapter(listInvestir);
-                recyclerView.setAdapter(adapter);
-                String qtdRg=myDao.qtdRegistrosPeloNomeProd(nome);
-                totalListaRg.setText(""+qtdRg);
-                double total=myDao.totalInvestidoPeloNomeProd(nome);
-                totalLista.setText(""+formataValor(total));
-                editDataEspecifica.setText(nome);
-
+                try {
+                    MyBancoControle_venda bd = Room.databaseBuilder(getApplication(), MyBancoControle_venda.class, "Meu_bd").build();
+                    MyDao myDao = bd.myDao();
+                    List<Investimento> listInvestir = myDao.getAllInvestimentosPelaData(dat);
+                    Adapter adapter = new Adapter(listInvestir);
+                    recyclerView.setAdapter(adapter);
+                    String qtdRg=myDao.qtdRegistrosPelaData(dat);
+                    totalListaRg.setText(""+qtdRg);
+                    double total=myDao.totalInvestidoPelaData(dat);
+                    totalLista.setText(""+formataValor(total));
+                    editDataEspecifica.setText(dat);
+                    alteraNomeCampo=true;
+                }catch (Exception e){
+                }
             }
         }).start();
     }

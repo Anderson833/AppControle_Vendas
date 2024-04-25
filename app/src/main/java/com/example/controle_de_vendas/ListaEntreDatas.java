@@ -40,18 +40,21 @@ public class ListaEntreDatas extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                MyBancoControle_venda bd = Room.databaseBuilder(getApplication(), MyBancoControle_venda.class, "Meu_bd").build();
-                MyDao myDao = bd.myDao();
-                List<Investimento> listInvestir = myDao.listaTodosEntreDatas(datai,dataf);
-                Adapter adapter = new Adapter(listInvestir);
-                binding.recyclerviewEntreDadas.setAdapter(adapter);
-                String qtdRg=myDao.qtdRegistrosEntreDatas(datai,dataf);
-                binding.totalListaRg.setText(""+qtdRg);
-                double total=myDao.totalInvestidoEntreDatas(datai,dataf);
-                binding.totalLista.setText(""+formataValor(total));
-                binding.datainicio.setText(datai);
-                binding.datafinal.setText(dataf);
+                try {
+                    MyBancoControle_venda bd = Room.databaseBuilder(getApplication(), MyBancoControle_venda.class, "Meu_bd").build();
+                    MyDao myDao = bd.myDao();
+                    List<Investimento> listInvestir = myDao.listaTodosEntreDatas(datai,dataf);
+                    Adapter adapter = new Adapter(listInvestir);
+                    binding.recyclerviewEntreDadas.setAdapter(adapter);
+                    String qtdRg=myDao.qtdRegistrosEntreDatas(datai,dataf);
+                    binding.totalListaRg.setText(""+qtdRg);
+                    double total=myDao.totalInvestidoEntreDatas(datai,dataf);
+                    binding.totalLista.setText(""+formataValor(total));
+                    binding.datainicio.setText(datai);
+                    binding.datafinal.setText(dataf);
+                }catch (Exception e){
 
+                }
             }
         }).start();
     }

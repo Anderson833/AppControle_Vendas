@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+     <item
+         android:title="Lista todos dados"
+            android:id="@+id/listatudo"
+         />
+    <item
+        android:title="Lista Por Produto"
+        android:id="@+id/listaporpRODUTO"
+        />
+    <item
+        android:title="Lista Por data"
+        android:id="@+id/listaPdata"
+        />
+    <item
+        android:title="Lista Por data e produto"
+        android:id="@+id/listaDataProd"
+        />
+    <item
+        android:title="Lista entre datas"
+        android:id="@+id/listaentreDatas"
+        />
+    <item
+        android:title="Lista por produto entre datas"
+        android:id="@+id/listaprodutoEntreDatas"
+        />
+</menu>

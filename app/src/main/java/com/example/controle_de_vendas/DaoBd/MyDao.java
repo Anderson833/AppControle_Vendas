@@ -79,7 +79,7 @@ public interface MyDao {
 
     //------------------------daqui para baixo métodos de data com produto------------------------------------
 // Métodos para lista os investimentos por uma data e produto especifico
-    // Método para lista todos investimentos entre as data e produto
+    // Método para lista todos investimentos entre uma data e produto
     @Query("SELECT * FROM Investimento WHERE data=:data and nomeProd=:produto")
     List<Investimento> listaTodosEntreDataProduto(String data,String produto);
     //Método para mostrar a quantidade de registros entre data e produto
@@ -88,4 +88,14 @@ public interface MyDao {
     // Método para soma todoo o total da coluna total do banco de dados entre data e produto
     @Query("SELECT SUM(total) FROM Investimento WHERE data=:data and nomeProd=:nomeProduto")
     double totalInvestidoEntreDataProduto(String data,String nomeProduto);
+    //---------------------Daqui para baixo os métodos são de lista, qtd de registros e soma entre datas e produto ------------------------------
+    // Método para lista todos investimentos entre as datas e produto
+    @Query("SELECT * FROM Investimento WHERE data>=:datai and data<=:dataf and nomeProd=:produto")
+    List<Investimento> listaTodosEntreDatas_e_Produto(String datai,String dataf,String produto);
+    //Método para mostrar a quantidade de registros entre datas e produto
+    @Query("SELECT COUNT(Id) FROM Investimento WHERE data>=:datai and data<=:dataf and nomeProd=:nomeProduto")
+    String qtdRegistrosEntreDatas_e_Produto(String datai,String dataf,String nomeProduto);
+    // Método para soma todoo o total da coluna total do banco de dados entre datas e produto
+    @Query("SELECT SUM(total) FROM Investimento WHERE data>=:datai and data<=:dataf and nomeProd=:nomeProduto")
+    double totalInvestidoEntreDatas_e_Produto(String datai,String dataf,String nomeProduto);
 }

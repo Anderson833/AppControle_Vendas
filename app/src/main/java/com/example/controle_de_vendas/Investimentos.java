@@ -34,11 +34,11 @@ public class Investimentos extends AppCompatActivity {
     // Variáveis do tipo EditText para pegar os dados dos campos do layout
     private EditText nome_produto,quantidade_Prod,valor_a_Pagar, preco_revenda;
     // Variáveis do tipo TexText para pegar os dados dos campos do layout ou exibir
-    private TextView data,totalInvest;
+    private TextView data,totalInvest, textTitulo;
     // Variável dat para armazenar a daata formatada
     private String dat="";
     // Variável do tipo Button para realizar o cadastro e a listagem dos dados
-    private Button listaProduto, addInvestimento;
+    private Button voltar, addInvestimento;
     private Calendar calendar;
     //Variável banco de dados na linha de baixo
     private MyBancoControle_venda bd;
@@ -55,11 +55,12 @@ public class Investimentos extends AppCompatActivity {
         // Passando os dados para as variáveis dos campos conforme seus campos
         nome_produto = findViewById(R.id.editNomeProduto_);
         addInvestimento = findViewById(R.id.botaoAdd);
-        listaProduto = findViewById(R.id.botaolistaProd);
+        voltar = findViewById(R.id.botaoVoltar);
         quantidade_Prod = findViewById(R.id.editQuantidade);
         valor_a_Pagar = findViewById(R.id.editValorPagor);
         data = findViewById(R.id.dataInvestir);
         totalInvest = findViewById(R.id.totalInvestido);
+        textTitulo =findViewById(R.id.textView1);
         preco_revenda = findViewById(R.id.editPrecoRevenda);
         calendar = Calendar.getInstance();
         // Método exibir a data atual do dia no campo de data
@@ -111,6 +112,13 @@ public class Investimentos extends AppCompatActivity {
 
             }
         });
+
+        voltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               voltarTelaPrincipal();
+            }
+        });
         /**
          * Método para realizar uma ação no botão de adicionar
          */
@@ -129,6 +137,7 @@ public class Investimentos extends AppCompatActivity {
                         Toast.makeText(Investimentos.this, "Dados atualizado com sucesso!", Toast.LENGTH_SHORT).show();
                         // Imprimindo o nome adicionar no butão
                         addInvestimento.setText("ADICIONAR");
+                        textTitulo.setText("Cadastrar");
                     } else {
                         // Método para cadastrar os investimentos
                         new CadastrarInvestimentos().start();
@@ -165,7 +174,6 @@ public class Investimentos extends AppCompatActivity {
                         setaCalculor();
                     }
                 }catch (Exception e){
-                    Log.i("iff","error "+e);
                 }
                     // Condição para saber se os campos de quantidade e valor revenda estão vazios
 
@@ -235,13 +243,12 @@ public class Investimentos extends AppCompatActivity {
     //  classe DecimaFormat para colocar os valores em casas decimais
     DecimalFormat decimalFormat  = new DecimalFormat("#,##0.00");
     /**
-     * Método para lista os dados salvos no banco de dados ao abrir a tela de lista de produtos
-     * @param v
+     * Método para voltar a tela principal
+     *
      */
-    public  void listaProdutos(View v){
-        Intent intt = new Intent(this,MainActivity.class);
+    public  void voltarTelaPrincipal(){
+        Intent intt = new Intent(this,TelaPrincipal.class);
         startActivity(intt);
-      //  finish();
     }
 
     /**
@@ -355,17 +362,11 @@ public class Investimentos extends AppCompatActivity {
             Log.i("gg","Dados  estaveis ");
             // convertando os dados dos campos, para cada tipo de dados especificos nas linhas de baixo conforme o  esperado
             String nome=nome_produto.getText().toString();
-            Log.i("gg","name  "+nome);
             int qtd=Integer.parseInt(quantidade_Prod.getText().toString());
-            Log.i("gg","quant  "+qtd);
             double valorRevenda=valorRv;
-            Log.i("gg","din revend "+valorRevenda);
             double valorPagor=Double.parseDouble(convertParaDouble(valor_a_Pagar.getText().toString()));
-            Log.i("gg","din valor pagoo "+valorPagor);
             double valorInvestido=qtd*valorRevenda;
-            Log.i("gg","total invest "+valorInvestido);
             String dat=data.getText().toString();
-            Log.i("gg","data  "+dat);
          // Passando uma obj do banco de dados e criando um objeto do tio investimento
             myDao.insertInvetimentos(new Investimento(0,nome,dat,qtd,valorRevenda,valorPagor,valorInvestido));
             //Limpando todos os campos assim que inserir os dados no banco de dados
@@ -377,7 +378,6 @@ public class Investimentos extends AppCompatActivity {
                     totalInvest.setText("");
                     valorPag="";
                 }catch (Exception e){
-                    Log.i("er",""+e);
                 }
         }
     }
@@ -444,6 +444,7 @@ public class Investimentos extends AppCompatActivity {
             totalInvest.setText(formataValor(total));
             // Nomeando o botão de adicionar par alterar
             addInvestimento.setText("ALTERAR");
+            textTitulo.setText("Atualizar");
             // Passando um valor falso para variável opcao
             opcao=false;
         }
