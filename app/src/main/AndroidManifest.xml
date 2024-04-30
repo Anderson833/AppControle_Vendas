@@ -13,28 +13,49 @@
         android:theme="@style/Theme.Controle_de_vendas"
         tools:targetApi="31">
         <activity
+            android:name=".MainCliente.ListaClientes"
+            android:exported="false" />
+        <activity
+            android:name=".MainDespesas.ListaDespesasDescricaoEntreDatas"
+            android:exported="false" />
+        <activity
+            android:name=".MainDespesas.ListaDespesaDescricaoEntreDatas"
+            android:exported="false" />
+        <activity
+            android:name=".MainDespesas.ListaDespesasPorData"
+            android:exported="false" />
+        <activity
+            android:name=".MainDespesas.ListaDespesas"
+            android:exported="false" />
+        <activity
+            android:name=".MainDespesas.DespesasMain"
+            android:exported="false" />
+        <activity
+            android:name=".MainCliente.Clientes"
+            android:exported="false" />
+        <activity
             android:name=".TelaPrincipal"
             android:exported="false" />
         <activity
-            android:name=".ListaEntreDatasProduto"
+            android:name=".MainInvestimentos.ListaEntreDatasProduto"
             android:exported="false" />
         <activity
-            android:name=".Investimentos"
+            android:name=".MainInvestimentos.Investimentos"
             android:exported="false" />
         <activity
-            android:name=".ListaPorDataProduto"
+            android:name=".MainInvestimentos.ListaPorDataProduto"
             android:exported="false" />
         <activity
-            android:name=".ListaEntreDatas"
+            android:name=".MainInvestimentos.ListaEntreDatas"
             android:exported="false" />
         <activity
-            android:name=".ListaPorProduto"
+            android:name=".MainInvestimentos.ListaPorProduto"
             android:exported="false" />
         <activity
-            android:name=".ListaPorData"
+            android:name=".MainInvestimentos.ListaPorData"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".MainInvestimentos.MainActivity"
             android:exported="false" />
         <activity
             android:name=".LogoDoApp"

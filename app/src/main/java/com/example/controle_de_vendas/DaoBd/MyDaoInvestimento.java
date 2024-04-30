@@ -13,7 +13,7 @@ import java.util.List;
  * Essa classe vai realizar a criação dos métodos de manipulação do banco de dados
  */
 @Dao
-public interface MyDao {
+public interface MyDaoInvestimento {
 
        // Método para inserir os dados de investimentos no banco de dados
     @Insert

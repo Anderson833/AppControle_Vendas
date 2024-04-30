@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,8 +19,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.room.Room;
 
-import com.example.controle_de_vendas.DaoBd.MyDao;
+import com.example.controle_de_vendas.DaoBd.MyDaoDespesa;
+import com.example.controle_de_vendas.DaoBd.MyDaoInvestimento;
 import com.example.controle_de_vendas.Database.MyBancoControle_venda;
+import com.example.controle_de_vendas.MainDespesas.DespesasMain;
+import com.example.controle_de_vendas.MainDespesas.ListaDespesas;
+import com.example.controle_de_vendas.MainDespesas.ListaDespesasDescricaoEntreDatas;
+import com.example.controle_de_vendas.MainDespesas.ListaDespesasPorData;
+import com.example.controle_de_vendas.MainInvestimentos.Investimentos;
+import com.example.controle_de_vendas.MainInvestimentos.ListaEntreDatas;
+import com.example.controle_de_vendas.MainInvestimentos.ListaEntreDatasProduto;
+import com.example.controle_de_vendas.MainInvestimentos.ListaPorData;
+import com.example.controle_de_vendas.MainInvestimentos.ListaPorDataProduto;
+import com.example.controle_de_vendas.MainInvestimentos.ListaPorProduto;
+import com.example.controle_de_vendas.MainInvestimentos.MainActivity;
+import com.example.controle_de_vendas.Modelo.Investimento;
 import com.example.controle_de_vendas.databinding.ActivityTelaPrincipalBinding;
 
 import java.util.Calendar;
@@ -36,7 +50,9 @@ public class TelaPrincipal extends AppCompatActivity {
         binding = ActivityTelaPrincipalBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         calendar=Calendar.getInstance();
-        PopupMenu popupMenu = new PopupMenu(TelaPrincipal.this,binding.listaTodos);
+        setaData();
+        listaInicioDeDados();
+        PopupMenu popupMenu = new PopupMenu(TelaPrincipal.this,binding.listaTodosDados);
         popupMenu.getMenu().add(Menu.NONE,0,0,"Cadastrar");
         popupMenu.getMenu().add(Menu.NONE,1,1,"Lista Todos Dados");
         popupMenu.getMenu().add(Menu.NONE,2,2,"Lista Por Data");
@@ -45,6 +61,11 @@ public class TelaPrincipal extends AppCompatActivity {
         popupMenu.getMenu().add(Menu.NONE,5,5,"Lista Entre Datas");
         popupMenu.getMenu().add(Menu.NONE,6,6,"Lista Produto Entre Datas");
 
+        PopupMenu menuDesp = new PopupMenu(TelaPrincipal.this,binding.MenuDespesas);
+        menuDesp.getMenu().add(Menu.NONE,0,0,"Cadastrar");
+        menuDesp.getMenu().add(Menu.NONE,1,1,"Lista Todos Dados");
+        menuDesp.getMenu().add(Menu.NONE,2,2,"Lista Por Data");
+        menuDesp.getMenu().add(Menu.NONE,3,3,"Lista Por Data e Descrição");
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
@@ -67,7 +88,28 @@ public class TelaPrincipal extends AppCompatActivity {
                 return false;
             }
         });
-
+        menuDesp.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                int id =menuItem.getItemId();
+                if(id==0){
+                    abrirTelaCadastroDespesas();
+                }else if(id==1){
+                        abrirTelaListaTodasDespesas();
+                }else if(id==2){
+                    exibirLayoutListaDespesaPorData();
+                }else if(id==3){
+                exibirLayoutDescricao_Entre_Datas();
+                 }
+                return false;
+            }
+        });
+        binding.MenuDespesas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                menuDesp.show();
+            }
+        });
         binding.listaTodosDados.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,20 +117,37 @@ public class TelaPrincipal extends AppCompatActivity {
             }
         });
     }
+   // int xc=0;
+   // @Override
+    /*public void onBackPressed() {
+        xc++;
+        Toast.makeText(this, "Qtd click "+xc, Toast.LENGTH_SHORT).show();
+        if(xc==2){
+            super.onBackPressed();
+        }
 
+    }*/
     public  void listaTodosInvestimentos(){
-        Intent abrirTelaMain = new Intent(TelaPrincipal.this,MainActivity.class);
+        Intent abrirTelaMain = new Intent(TelaPrincipal.this, MainActivity.class);
         startActivity(abrirTelaMain);
     }
     public  void abrirTelaCadastro(){
-        Intent abrirTelaMain = new Intent(TelaPrincipal.this,Investimentos.class);
+        Intent abrirTelaMain = new Intent(TelaPrincipal.this, Investimentos.class);
+        startActivity(abrirTelaMain);
+    }
+    public  void abrirTelaCadastroDespesas(){
+        Intent abrirTelaMain = new Intent(TelaPrincipal.this, DespesasMain.class);
+        startActivity(abrirTelaMain);
+    }
+    public  void abrirTelaListaTodasDespesas(){
+        Intent abrirTelaMain = new Intent(TelaPrincipal.this, ListaDespesas.class);
         startActivity(abrirTelaMain);
     }
     public void exibirLayoutPorData(){
         Dialog d = new Dialog(this);
         d.setContentView(R.layout.layoutpordata);
         TextView campoData =d.findViewById(R.id.editDataEspecificar);
-        AppCompatButton bt =d.findViewById(R.id.botaopData);
+        AppCompatButton bt =d.findViewById(R.id.botaoDespData);
         campoData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,6 +161,29 @@ public class TelaPrincipal extends AppCompatActivity {
                     Toast.makeText(TelaPrincipal.this, "Preencha o campo Data!", Toast.LENGTH_SHORT).show();
                 }else{
                     listaPelaData(campoData.getText().toString());
+                    d.dismiss();
+                }
+            }
+        });d.show();
+    }
+    public void exibirLayoutListaDespesaPorData(){
+        Dialog d = new Dialog(this);
+        d.setContentView(R.layout.layoutdespesapordata);
+        TextView campoData =d.findViewById(R.id.editDataEspecificar);
+        AppCompatButton bt =d.findViewById(R.id.botaoDespData);
+        campoData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setaCalendario(campoData);
+            }
+        });
+        bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(campoData.getText().toString().equals("")) {
+                    Toast.makeText(TelaPrincipal.this, "Preencha o campo Data!", Toast.LENGTH_SHORT).show();
+                }else{
+                    listaDespesaData(campoData.getText().toString());
                     d.dismiss();
                 }
             }
@@ -232,18 +314,67 @@ public class TelaPrincipal extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent(TelaPrincipal.this,ListaPorData.class);
+                Intent i = new Intent(TelaPrincipal.this, ListaPorData.class);
                 i.putExtra("data",dat);
                 startActivity(i);
-
             }
         }).start();
+    }
+    public void listaDespesaData (String dat) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Intent i = new Intent(TelaPrincipal.this, ListaDespesasPorData.class);
+                i.putExtra("data",dat);
+                startActivity(i);
+            }
+        }).start();
+    }
+    public void exibirLayoutDescricao_Entre_Datas() {
+        Dialog d = new Dialog(this);
+        d.setContentView(R.layout.layoutdescricaoentredatas);
+        TextView campoDataInicio = d.findViewById(R.id.editDataComecodespesa);
+        TextView campoDataTermino = d.findViewById(R.id.editDataTerminiodespesas);
+        Spinner spinner = d.findViewById(R.id.descricaoescolhida);
+        listaNomesDespesas(spinner);
+        AppCompatButton btDataProdutos = d.findViewById(R.id.botaoDescricaoEntreDatas);
+        campoDataInicio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setaCalendario(campoDataInicio);
+            }
+        });
+        campoDataTermino.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setaCalendario(campoDataTermino);
+            }
+        });
+        btDataProdutos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String datai=campoDataInicio.getText().toString();
+                String dataf=campoDataTermino.getText().toString();
+                if (datai.equals("")) {
+                    Toast.makeText(TelaPrincipal.this, "Preencha o campo data início!", Toast.LENGTH_SHORT).show();
+                }else if(dataf.equals("")) {
+                    Toast.makeText(TelaPrincipal.this, "Preencha o campo data final!", Toast.LENGTH_SHORT).show();
+                } else if (spinner.getSelectedItem().equals("")||spinner.getSelectedItem()==null) {
+                    Toast.makeText(TelaPrincipal.this, "Selecioner um Produto!", Toast.LENGTH_SHORT).show();
+                } else {
+                    String descricaoEscolhida = String.valueOf(spinner.getSelectedItem());
+                   listaDescricao_entre_datas(datai,dataf,descricaoEscolhida);
+                    d.dismiss();
+                }
+            }
+        });d.show();
+
     }
     public void listaProdutoEspecifico (String nomeProd) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent(TelaPrincipal.this,ListaPorProduto.class);
+                Intent i = new Intent(TelaPrincipal.this, ListaPorProduto.class);
                 i.putExtra("nomeProd",nomeProd);
                 startActivity(i);
             }
@@ -253,7 +384,7 @@ public class TelaPrincipal extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent(TelaPrincipal.this,ListaEntreDatas.class);
+                Intent i = new Intent(TelaPrincipal.this, ListaEntreDatas.class);
                 i.putExtra("datai",datai);
                 i.putExtra("dataf",dataf);
                 startActivity(i);
@@ -277,6 +408,19 @@ public class TelaPrincipal extends AppCompatActivity {
             public void run() {
                 Intent i = new Intent(TelaPrincipal.this, ListaEntreDatasProduto.class);
                 i.putExtra("nomeProduto",nomeProd);
+                i.putExtra("datacomeco",datai);
+                i.putExtra("datatermino",dataf);
+                startActivity(i);
+            }
+        }).start();
+    }
+
+    public void listaDescricao_entre_datas (String datai,String dataf,String descricao) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Intent i = new Intent(TelaPrincipal.this, ListaDespesasDescricaoEntreDatas.class);
+                i.putExtra("descricao",descricao);
                 i.putExtra("datacomeco",datai);
                 i.putExtra("datatermino",dataf);
                 startActivity(i);
@@ -324,7 +468,7 @@ public class TelaPrincipal extends AppCompatActivity {
             public void run() {
                 try {
                     bd = Room.databaseBuilder(getApplication(), MyBancoControle_venda.class, "Meu_bd").build();
-                    MyDao myDao = bd.myDao();
+                    MyDaoInvestimento myDao = bd.myDao();
                     List<String> listaNomesProdutos = myDao.listaProdutosNomes();
                     if(listaNomesProdutos.isEmpty()){
                         listaNomesProdutos.add(0,"Sem Produto!");
@@ -338,5 +482,66 @@ public class TelaPrincipal extends AppCompatActivity {
             }
         }).start();
 
+    }
+    public void listaNomesDespesas(Spinner spinner){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    bd = Room.databaseBuilder(getApplication(), MyBancoControle_venda.class, "Meu_bd").build();
+                    MyDaoDespesa myDaodesp = bd.myDaoDespesa();
+                    List<String> listaNomesdesp = myDaodesp.listaNomesDespesas();
+                    if(listaNomesdesp.isEmpty()){
+                        listaNomesdesp.add(0,"Sem Despesas!");
+                    }else{
+                        listaNomesdesp.add(0,"");
+                    }
+                    ArrayAdapter<String> listaNomedesp = new ArrayAdapter<String> (getApplicationContext(), android.R.layout.simple_spinner_dropdown_item,listaNomesdesp );
+                    spinner.setAdapter(listaNomedesp);
+                }catch (Exception r){
+                }
+            }
+        }).start();
+
+    }
+    public void listaInicioDeDados () {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    bd = Room.databaseBuilder(getApplication(), MyBancoControle_venda.class, "Meu_bd").build();
+                    MyDaoInvestimento myDao = bd.myDao();
+                    List<Investimento> listInvestir = myDao.getAllInvestimentos();
+                    for (Investimento i:listInvestir) {
+                        Log.i("dadosinicio","id "+i.getId());
+                        if(i.getId()==1){
+                            Log.i("dadosinicio","Não autorizado!");
+                        }
+                    }
+                }catch (Exception e){
+                }
+            }
+        }).start();
+    }
+    /*public  void  adicionarData(){
+         calendar.set(2024,Calendar.APRIL,21);
+          calendar.set(Calendar.MILLISECOND,0);
+          Log.i("dataff","data add "+calendar.getTime());
+    }*/
+
+    public void setaData(){
+      /*  Calendar calendar = Calendar.getInstance();
+       // calendar.set(2024,Calendar.,29);
+      //  calendar.set(Calendar.MILLISECOND,0);
+        calendar.add(Calendar.DAY_OF_MONTH,31);
+        Log.i("dataDt","Ano "+calendar.get(Calendar.YEAR));
+        Log.i("dataDt","Mês "+calendar.get(Calendar.MONTH));
+        Log.i("dataDt","Dia "+calendar.get(Calendar.DAY_OF_MONTH));
+        Date d = calendar.getTime();
+        Date dta = new Date();
+       long dd=d.getTime()-dta.getTime();
+        long dtt= TimeUnit.MILLISECONDS.toDays(dd);
+        Log.i("dataDt",""+dtt);*/
+       // adicionarData();
     }
 }

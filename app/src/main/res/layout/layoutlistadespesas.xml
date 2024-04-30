@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/stylecards"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/idDespesa"
+            android:visibility="gone"
+            android:layout_height="wrap_content">
+        </TextView>
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:background="@drawable/styleview"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/estilo_Textview"
+                android:text="Nome:" />
+            <TextView
+                android:id="@+id/DESCRICAO"
+                style="@style/estilo_EditText"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:background="@drawable/styleview"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/estilo_Textview"
+                android:text="Data:"
+                />
+
+            <TextView
+                android:id="@+id/Datadesp"
+                style="@style/estilo_EditText" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:background="@drawable/styleview"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/estilo_Textview"
+                android:text="Total:" />
+
+            <TextView
+                android:id="@+id/TodoTotalDespesas"
+                style="@style/estilo_EditText" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/alterar_DESPESA"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:background="@drawable/stylesbotaoalterar"
+                android:text="Alterar">
+            </androidx.appcompat.widget.AppCompatButton>
+            <Space
+                android:layout_width="40dp"
+                android:layout_height="match_parent"></Space>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonDeleteDespesa"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/stylesbotaodeletar"
+                android:textColor="@color/white"
+                android:text="Deletar">
+            </androidx.appcompat.widget.AppCompatButton>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

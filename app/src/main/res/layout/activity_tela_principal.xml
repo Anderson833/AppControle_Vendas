@@ -29,12 +29,13 @@
         <Space
             android:layout_width="10dp"
             android:layout_height="match_parent"></Space>
-        <TextView
+        <androidx.appcompat.widget.AppCompatButton
             android:layout_width="wrap_content"
             android:text="Despesas"
             android:gravity="center"
-            android:textSize="15sp"
-            android:layout_height="match_parent"></TextView>
+            android:textSize="12sp"
+            android:id="@+id/MenuDespesas"
+            android:layout_height="match_parent"></androidx.appcompat.widget.AppCompatButton>
         <Space
             android:layout_width="10dp"
             android:layout_height="match_parent"></Space>

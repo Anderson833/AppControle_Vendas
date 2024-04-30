@@ -1,23 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:layout_gravity="center"
     android:orientation="vertical"
-    tools:context=".MainInvestimentos.ListaEntreDatasProduto">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
+    android:layout_height="wrap_content">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/styletextview"
         android:gravity="center"
         android:padding="10dp"
-        android:text="Lista de Produtos"
+        android:text="Escolhe Descrição Entre Datas"
         android:textColor="@color/black"
         android:textSize="20sp"></TextView>
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -25,7 +18,6 @@
         android:gravity="center"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:visibility="visible"
         android:id="@+id/entredatas_e_Produto"
         android:orientation="horizontal" android:background="@drawable/styleview"
         android:layout_height="match_parent">
@@ -47,7 +39,7 @@
                     android:layout_height="30dp">
                 </TextView>
                 <TextView
-                    android:id="@+id/editDataComeco"
+                    android:id="@+id/editDataComecodespesa"
                     android:layout_width="110dp"
                     android:gravity="center"
                     android:textSize="15sp"
@@ -68,13 +60,14 @@
                     android:layout_height="30dp">
                 </TextView>
                 <TextView
-                    android:id="@+id/editDataTerminio"
+                    android:id="@+id/editDataTerminiodespesas"
                     android:layout_width="110dp"
                     android:gravity="center"
                     android:textSize="15sp"
                     android:hint="Dia/Mês/Ano"
                     android:layout_height="30dp">
-                </TextView></androidx.appcompat.widget.LinearLayoutCompat>
+                </TextView>
+            </androidx.appcompat.widget.LinearLayoutCompat>
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -82,71 +75,26 @@
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="90dp"
-                    android:text="Produto:"
+                    android:text="Descrição:"
                     android:textSize="15sp"
                     android:gravity="center"
                     android:layout_height="30dp">
                 </TextView>
-                <TextView
+                <Spinner
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"
-                    android:id="@+id/produtoEscolhido"
-                    android:layout_height="30dp"></TextView>
+                    android:id="@+id/descricaoescolhida"
+                    android:layout_height="30dp"></Spinner>
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="55dp"
+            android:text="Ver"
+            android:textSize="15sp"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center"
+            android:id="@+id/botaoDescricaoEntreDatas"
+            android:layout_height="40dp">
+        </androidx.appcompat.widget.AppCompatButton>
     </androidx.appcompat.widget.LinearLayoutCompat>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/stylecards"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="130dp"
-                android:layout_height="30dp"
-                android:gravity="center"
-                android:text="Qtd Rg:">
-            </TextView>
-            <TextView
-                android:layout_width="130dp"
-                android:layout_height="30dp"
-                android:gravity="center"
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/black"
-                android:id="@+id/totalListaRg">
-            </TextView>
-        </LinearLayout>
-        <Space
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"></Space>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/stylecards"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="130dp"
-                android:layout_height="30dp"
-                android:gravity="center"
-                android:text="Total:">
-            </TextView>
-            <TextView
-                android:layout_width="130dp"
-                android:layout_height="30dp"
-                android:gravity="center"
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/black"
-                android:id="@+id/totalLista">
-            </TextView>
-        </LinearLayout>
-    </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RecycleviewprodutosEntreDatas"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 </androidx.appcompat.widget.LinearLayoutCompat>

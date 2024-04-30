@@ -8,6 +8,15 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:background="@drawable/styleview"
+        android:text="Despesa"
+        android:textColor="@color/black"
+        android:textSize="20sp"></TextView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/styletextview"
         android:gravity="center"
         android:padding="10dp"

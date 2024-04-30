@@ -1,4 +1,4 @@
-package com.example.controle_de_vendas;
+package com.example.controle_de_vendas.MainInvestimentos;
 
 import android.os.Bundle;
 import android.widget.TextView;
@@ -8,9 +8,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
-import com.example.controle_de_vendas.DaoBd.MyDao;
+import com.example.controle_de_vendas.DaoBd.MyDaoInvestimento;
 import com.example.controle_de_vendas.Database.MyBancoControle_venda;
 import com.example.controle_de_vendas.Modelo.Investimento;
+import com.example.controle_de_vendas.R;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -45,7 +46,7 @@ public class ListaPorData extends AppCompatActivity {
             public void run() {
                 try {
                     MyBancoControle_venda bd = Room.databaseBuilder(getApplication(), MyBancoControle_venda.class, "Meu_bd").build();
-                    MyDao myDao = bd.myDao();
+                    MyDaoInvestimento myDao = bd.myDao();
                     List<Investimento> listInvestir = myDao.getAllInvestimentosPelaData(dat);
                     Adapter adapter = new Adapter(listInvestir);
                     recyclerView.setAdapter(adapter);

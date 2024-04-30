@@ -8,7 +8,7 @@
     android:padding="10dp"
     android:gravity="center"
     android:background="@color/DodgerBlue"
-    tools:context=".MainInvestimentos.Investimentos">
+    tools:context=".MainCliente.Clientes">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,44 +44,46 @@
                 android:textColor="@color/white"
                 android:layout_height="50dp"
                 android:text="Cadastrar" />
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="250dp"
-            android:gravity="center"
-            android:textSize="30sp"
-            android:textColor="@color/white"
-            android:layout_marginBottom="5dp"
-            android:layout_height="50dp"
-            android:text="Investimento" />
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="250dp"
+                android:gravity="center"
+                android:textSize="30sp"
+                android:textColor="@color/white"
+                android:layout_marginBottom="5dp"
+                android:layout_height="50dp"
+                android:text="Cliente" />
         </androidx.appcompat.widget.LinearLayoutCompat>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:textSize="15sp"
             android:gravity="center"
-            android:text="Nome:" />
+            android:text="Nome:"
+            android:textSize="15sp" />
+
         <EditText
-            android:id="@+id/editNomeProduto_"
+            android:id="@+id/editNomeCliente"
             android:layout_width="250dp"
             android:layout_height="45dp"
             android:gravity="center"
-            android:hint="Nome do Produto"
+            android:hint="Nome do Cliente"
             android:inputType="textAutoComplete"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:textSize="15sp"
             android:gravity="center"
-            android:text="Quantidade:" />
+            android:text="Endereço:" />
 
         <EditText
-            android:id="@+id/editQuantidade"
+            android:id="@+id/editEndereco"
             android:layout_width="250dp"
             android:layout_height="45dp"
             android:ems="10"
             android:gravity="center"
-            android:hint="Informe a Quantidade"
-            android:inputType="number|numberSigned" />
+            android:hint="Informe endereço "
+            android:inputType="textAutoComplete" />
 
 
         <TextView
@@ -89,62 +91,28 @@
             android:layout_height="40dp"
             android:textSize="15sp"
             android:gravity="center"
-            android:text="Preço de Revenda:" />
+            android:text="Telefone:" />
 
         <EditText
-            android:id="@+id/editPrecoRevenda"
+            android:id="@+id/editTelefone"
             android:layout_width="250dp"
             android:layout_height="45dp"
             android:gravity="center"
-            android:inputType="numberDecimal"
+            android:inputType="phone"
             android:ems="10"
-            android:hint="Informe o Preço Rv:"/>
+            android:hint="Informe telefone:"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:orientation="horizontal"
             android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:textSize="15sp"
-                android:gravity="center"
-                android:text="Total:" />
-            <Space
-                android:layout_width="40dp"
-                android:layout_height="match_parent"></Space>
-            <TextView
-                android:id="@+id/totalInvestido"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:textSize="20sp"
-                android:hint="0,00"
-                android:textColor="@color/black"
-                android:gravity="center" />
         </LinearLayout>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:textSize="15sp"
-            android:gravity="center"
-            android:text="Valor Pagor:" />
-
-        <EditText
-            android:id="@+id/editValorPagor"
-            android:layout_width="250dp"
-            android:layout_height="45dp"
-            android:gravity="center"
-            android:inputType="numberDecimal"
-            android:ems="10"
-            android:hint="Informe o Preço"/>
-
-
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:gravity="center"
             android:layout_height="wrap_content">
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/botaoAdd"
+                android:id="@+id/botaoAddCliente"
                 android:layout_width="90dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="15dp"
@@ -156,7 +124,7 @@
                 android:layout_width="50dp"
                 android:layout_height="match_parent"></Space>
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/botaoVoltar"
+                android:id="@+id/botaoVoltarTeleInicio"
                 android:layout_width="90dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="15dp"

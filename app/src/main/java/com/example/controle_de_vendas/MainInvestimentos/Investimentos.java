@@ -1,4 +1,4 @@
-package com.example.controle_de_vendas;
+package com.example.controle_de_vendas.MainInvestimentos;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -16,9 +16,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
-import com.example.controle_de_vendas.DaoBd.MyDao;
+import com.example.controle_de_vendas.DaoBd.MyDaoInvestimento;
 import com.example.controle_de_vendas.Database.MyBancoControle_venda;
 import com.example.controle_de_vendas.Modelo.Investimento;
+import com.example.controle_de_vendas.R;
+import com.example.controle_de_vendas.TelaPrincipal;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -69,7 +71,6 @@ public class Investimentos extends AppCompatActivity {
         setaDadosInvestimentos();
         // Instânciando um objeto do banco de dados
         bd = Room.databaseBuilder(getApplication(), MyBancoControle_venda.class, "Meu_bd").build();
-
 /**
  *  Método para realizar uma ação no campo de data
  */
@@ -109,7 +110,6 @@ public class Investimentos extends AppCompatActivity {
                     }
                 }, year, month, day);
                 datePickerDialog.show();
-
             }
         });
 
@@ -143,7 +143,6 @@ public class Investimentos extends AppCompatActivity {
                         new CadastrarInvestimentos().start();
                         // informa uma mensagem para usuário na linha de baixo
                         Toast.makeText(Investimentos.this, "Dados adicionados com sucesso!", Toast.LENGTH_SHORT).show();
-
                     }
                 }
             }
@@ -156,13 +155,11 @@ public class Investimentos extends AppCompatActivity {
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 //aqui executar tudo antes de ser tira o clique do campo
             }
-
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 // aqui na hora que está digitando no campo
 
             }
-
             @Override
             public void afterTextChanged(Editable editable) {
                 // aqui exibir depois do clique
@@ -176,7 +173,6 @@ public class Investimentos extends AppCompatActivity {
                 }catch (Exception e){
                 }
                     // Condição para saber se os campos de quantidade e valor revenda estão vazios
-
                 }
         });
         /**
@@ -229,11 +225,7 @@ public class Investimentos extends AppCompatActivity {
                 }
             }
         });
-
-
-
     }
-
     public String formataValor(double valor){
         //  classe DecimaFormat para colocar os valores em casas decimais
         DecimalFormat decimalFormat  = new DecimalFormat("#,##0.00");
@@ -247,7 +239,7 @@ public class Investimentos extends AppCompatActivity {
      *
      */
     public  void voltarTelaPrincipal(){
-        Intent intt = new Intent(this,TelaPrincipal.class);
+        Intent intt = new Intent(this, TelaPrincipal.class);
         startActivity(intt);
     }
 
@@ -284,7 +276,6 @@ public class Investimentos extends AppCompatActivity {
         String correto=corrigir.replace("-","");
         int qtd=Integer.parseInt(correto);
          valorRv=Double.parseDouble(convertParaDouble(preco_revenda.getText().toString()));
-        Log.i("gg","vl rv"+valorRv);
         double totalCal=qtd*valorRv;
         String convertEmCasasDecimais=decimalFormat.format(totalCal);
         totalInvest.setText(""+convertEmCasasDecimais);
@@ -358,7 +349,7 @@ public class Investimentos extends AppCompatActivity {
         public void run() {
             super.run();
             // criando um obj do banco de dados
-            MyDao myDao =bd.myDao();
+            MyDaoInvestimento myDao =bd.myDao();
             Log.i("gg","Dados  estaveis ");
             // convertando os dados dos campos, para cada tipo de dados especificos nas linhas de baixo conforme o  esperado
             String nome=nome_produto.getText().toString();
@@ -390,7 +381,7 @@ public class Investimentos extends AppCompatActivity {
         public void run() {
             super.run();
          ///Criando um objeto do tipo myDao do banco de dados
-            MyDao myDao =bd.myDao();
+            MyDaoInvestimento myDao =bd.myDao();
             // convertando os dados dos campos, para cada tipo de dados especificos nas linhas de baixo conforme o  esperado
             int id = getIntent().getIntExtra("id", 0);
             String nome=nome_produto.getText().toString();

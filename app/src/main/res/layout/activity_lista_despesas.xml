@@ -6,56 +6,30 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".MainInvestimentos.MainActivity">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/styletextview"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Lista de Produtos"
+            android:id="@+id/titulo"
+            android:text="Lista de Todas Despesas"
             android:textColor="@color/black"
             android:textSize="20sp"></TextView>
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_height="wrap_content">
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="250dp"
-                android:orientation="horizontal"
-                android:visibility="visible"
-                android:layout_gravity="center"
-                android:background="@drawable/styleview"
-                android:id="@+id/dataEspecificaLinear"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="90dp"
-                    android:text="Nome:"
-                    android:id="@+id/mudaOpcao"
-                    android:gravity="center"
-                    android:layout_height="50dp">
-                </TextView>
-                <TextView
-                    android:id="@+id/nomeProduto"
-                    android:layout_width="100dp"
-                    android:gravity="center"
-                    android:hint="Produto"
-                    android:layout_height="50dp">
-                </TextView>
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/linearRegistroSoma"
         android:gravity="center"
         android:orientation="horizontal">
         <LinearLayout
@@ -73,7 +47,6 @@
                 android:layout_width="130dp"
                 android:layout_height="30dp"
                 android:gravity="center"
-                android:text="100"
                 android:layout_marginBottom="10dp"
                 android:textColor="@color/black"
                 android:id="@+id/totalListaRg">
@@ -104,8 +77,7 @@
         </LinearLayout>
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerviewProdutoEspecifico"
+        android:id="@+id/RecycleviewListaDespesas"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
 </androidx.appcompat.widget.LinearLayoutCompat>

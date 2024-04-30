@@ -74,4 +74,5 @@ public class SetaValoresInvestir {
     public static void setTodoTotalInvest(double todoTotalInvest) {
         SetaValoresInvestir.todoTotalInvest = todoTotalInvest;
     }
+
 }

@@ -1,4 +1,4 @@
-package com.example.controle_de_vendas;
+package com.example.controle_de_vendas.MainInvestimentos;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -14,9 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
-import com.example.controle_de_vendas.DaoBd.MyDao;
+import com.example.controle_de_vendas.DaoBd.MyDaoInvestimento;
 import com.example.controle_de_vendas.Database.MyBancoControle_venda;
 import com.example.controle_de_vendas.Modelo.Investimento;
+import com.example.controle_de_vendas.R;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -37,7 +38,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyholderProdutos> {
     }
     @Override
     public void onBindViewHolder(@NonNull MyholderProdutos holder, int position) {
-     holder.idInvestir.setText(""+listaInvesti.get(position).getId());
+      holder.idInvestir.setText(""+listaInvesti.get(position).getId());
       holder.nome.setText(listaInvesti.get(position).getNomeProd());
       holder.qtd.setText(""+listaInvesti.get(position).getQuantidade());
       holder.data.setText(listaInvesti.get(position).getData());
@@ -56,7 +57,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyholderProdutos> {
             @Override
             public void onClick(View view) {
               MyBancoControle_venda  bd = Room.databaseBuilder(holder.delete.getContext(), MyBancoControle_venda.class, "Meu_bd").allowMainThreadQueries().build();
-                MyDao myDao = bd.myDao();
+                MyDaoInvestimento myDao = bd.myDao();
                 if(myDao.is_exist(id)){
                     AlertDialog.Builder del= new AlertDialog.Builder(holder.delete.getContext());
                     del.setTitle("Excluir Dados:");
@@ -68,7 +69,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyholderProdutos> {
                         public void onClick(DialogInterface dialog, int which) {
                             Toast.makeText(holder.itemView.getContext(), "Dados excluídos com sucesso!", Toast.LENGTH_SHORT).show();
                             myDao.deletaDados(id);notifyDataSetChanged();
-                            Intent intents = new Intent(holder.itemView.getContext(),MainActivity.class);
+                            Intent intents = new Intent(holder.itemView.getContext(), MainActivity.class);
                             holder.itemView.getContext().startActivity(intents);
                         }
                     });
@@ -89,10 +90,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyholderProdutos> {
           @Override
           public void onClick(View view) {
               MyBancoControle_venda  bd = Room.databaseBuilder(holder.alterar.getContext(), MyBancoControle_venda.class, "Meu_bd").allowMainThreadQueries().build();
-              MyDao myDao = bd.myDao();
+              MyDaoInvestimento myDao = bd.myDao();
             boolean vrfc=myDao.is_exist(id);
               if (vrfc) {
-                 Intent intents = new Intent(holder.itemView.getContext(),Investimentos.class);
+                 Intent intents = new Intent(holder.itemView.getContext(), Investimentos.class);
                  intents.putExtra("id",id);
                 intents.putExtra("nome", nom);
                   intents.putExtra("data", dat);
